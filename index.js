@@ -14,11 +14,7 @@ app.get('/', (req, res) => {
   res.json({ 
     status: 'OK', 
     message: '🚀 Nesti AI Server is running!',
-    timestamp: new Date().toISOString(),
-    endpoints: {
-      health: '/health',
-      ai: '/api/nesti-ai'
-    }
+    timestamp: new Date().toISOString()
   });
 });
 
@@ -26,7 +22,7 @@ app.get('/', (req, res) => {
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'OK', 
-    message: '❤️ Nesti AI Server is healthy!',
+    message: '❤️ Server is healthy!',
     timestamp: new Date().toISOString()
   });
 });
@@ -40,11 +36,8 @@ app.post('/api/nesti-ai', async (req, res) => {
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    console.log('🤖 Received:', message.substring(0, 50));
+    console.log('🤖 Received:', message);
 
-    // Utilisation de node-fetch
-    const fetch = (await import('node-fetch')).default;
-    
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
